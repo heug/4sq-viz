@@ -1,14 +1,16 @@
-const STUB1 = require('./stubs/checkIn1');
-const STUB2 = require('./stubs/checkIn2');
-const STUB3 = require('./stubs/checkIn3');
-const STUB4 = require('./stubs/checkIn4');
+import React from 'react';
+import d3 from 'd3';
+// import store from '../../../../app.js';
 
-let checkInList = STUB1.response.checkins.items
+const STUB1 = require('../../../stubs/checkIn1');
+const STUB2 = require('../../../stubs/checkIn2');
+const STUB3 = require('../../../stubs/checkIn3');
+const STUB4 = require('../../../stubs/checkIn4');
+
+var checkInList = STUB1.response.checkins.items
 	.concat(STUB2.response.checkins.items)
 	.concat(STUB3.response.checkins.items)
 	.concat(STUB4.response.checkins.items);
-
-console.log(checkInList[10].venue.name);
 
 var store = {};
 
@@ -30,8 +32,23 @@ for (var i = 0; i < checkInList.length; i++) {
 	}
 };
 
-for (var key in store) {
-	console.log(key, store[key].visitCount);
+class Hello extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			data: store
+		}
+		// console.log(this.state.data);
+	}
+
+	render() {
+		return (
+			<div>
+				<h1>HELLO WORLD</h1>
+				<svg width="1000" height="800"></svg>
+			</div>
+		);
+	}
 };
 
-module.exports = store;
+export default Hello;
