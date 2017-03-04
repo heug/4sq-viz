@@ -1,9 +1,7 @@
-const AccountReducer = (
-	state = {
-		isFetching: false,
-		data: null
-	}, action
-) => {
+const AccountReducer = (state = {
+	isFetching: false,
+	account: null
+}, action) => {
 	if (action.type === 'REQUEST_ACCOUNT') {
 		return Object.assign({}, state, {
 			isFetching: true,
@@ -11,7 +9,7 @@ const AccountReducer = (
 	} else if (action.type === 'RECEIVE_ACCOUNT') {
 		return Object.assign({}, state, {
 			isFetching: false,
-			data: action.payload
+			account: action.payload
 		});
 	} else {
 		return state;

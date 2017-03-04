@@ -1,55 +1,54 @@
 import React from 'react';
-import {  } from 'react-bootstrap';
-import d3 from 'd3';
-// import store from '../../../../app.js';
-
-const STUB1 = require('../../../stubs/checkIn1');
-const STUB2 = require('../../../stubs/checkIn2');
-const STUB3 = require('../../../stubs/checkIn3');
-const STUB4 = require('../../../stubs/checkIn4');
-
-var checkInList = STUB1.response.checkins.items
-	.concat(STUB2.response.checkins.items)
-	.concat(STUB3.response.checkins.items)
-	.concat(STUB4.response.checkins.items);
-
-var store = {};
-
-for (var i = 0; i < checkInList.length; i++) {
-	if (checkInList[i].venue.categories[0]) {
-		if (!store[checkInList[i].venue.categories[0].pluralName]) {
-			store[checkInList[i].venue.categories[0].pluralName] = {
-				venues: {},
-				visitCount: 1
-			};
-		} else {
-			store[checkInList[i].venue.categories[0].pluralName].visitCount++;
-		}
-		if (!store[checkInList[i].venue.categories[0].pluralName].venues[checkInList[i].venue.name]) {
-			store[checkInList[i].venue.categories[0].pluralName].venues[checkInList[i].venue.name] = 1;
-		} else {
-			store[checkInList[i].venue.categories[0].pluralName].venues[checkInList[i].venue.name]++;
-		}
-	}
-};
+// import {  } from 'react-bootstrap';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { getAccount } from '../../actions';
+// import d3 from 'd3';
 
 class Hello extends React.Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: store
+			account: null
 		}
-		// console.log(this.state.data);
+	}
+
+	componentWillMount() {
+		this.props.getAccount();
+	}
+
+	displayList(obj) {
+		// for (var key in obj) {
+		// 	console.log(key);
+		// }
+		// if (Object.keys(this.props.))
 	}
 
 	render() {
 		return (
 			<div>
 				<h1>HELLO WORLD</h1>
+				{ this.props.account.account ? 
+					this.props.account.account['Airports'].visitCount : 
+					'not loaded' 
+				}
 				<svg width="1000" height="800"></svg>
 			</div>
 		);
 	}
 };
 
-export default Hello;
+const mapStateToProps = (state) => {
+	return {
+		account: state.account
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {1
+	return bindActionCreators({
+		getAccount: getAccount
+	}, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Hello);
