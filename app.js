@@ -8,7 +8,7 @@ let checkInList = STUB1.response.checkins.items
 	.concat(STUB3.response.checkins.items)
 	.concat(STUB4.response.checkins.items);
 
-console.log(checkInList[10].venue.name);
+console.log(checkInList[10]);
 
 var store = {};
 
@@ -30,8 +30,8 @@ for (var i = 0; i < checkInList.length; i++) {
 	}
 };
 
-for (var key in store) {
-	console.log(key, store[key].visitCount);
-};
+// for (var key in store) {
+// 	console.log(key, store[key].visitCount);
+// };
 
 module.exports = store;
