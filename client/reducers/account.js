@@ -1,7 +1,7 @@
 const AccountReducer = (
 	state = {
 		isFetching: false,
-		data: null;
+		data: null
 	}, action
 ) => {
 	if (action.type === 'REQUEST_ACCOUNT') {
