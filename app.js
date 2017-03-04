@@ -27,6 +27,7 @@ for (var i = 0; i < checkInList.length; i++) {
 		}
 	}
 };
+
 // // Check data store
 // for (var key in store) {
 // 	console.log(key, store[key].visitCount);
