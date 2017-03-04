@@ -3,4 +3,6 @@ import AccountReducer from './account'
 
 const allReducers = {
 	account: AccountReducer
-}
+};
+
+export default allReducers;
