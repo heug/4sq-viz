@@ -3,6 +3,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getAccount } from '../../actions';
+import './hello.scss';
 // import d3 from 'd3';
 
 class Hello extends React.Component {
@@ -27,7 +28,7 @@ class Hello extends React.Component {
 		return (
 			Object.keys(this.props.account).map((category) => {
 				return (
-					<li key={category.id}>
+					<li key={category.id} className="category-item">
 						{ category }
 					</li>
 				)
@@ -44,7 +45,7 @@ class Hello extends React.Component {
 		return (
 			Object.keys(this.props.account[cat].venues).map((venue) => {
 				return (
-					<li key={venue}>
+					<li key={venue} className="venue-item">
 						{ venue }
 					</li>
 				);
@@ -55,26 +56,27 @@ class Hello extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>HELLO WORLD</h1>
-				<br/>
-				Categories
-				<br/>
-				<ul>
-					{ this.props.account ? 
-						this.displayCategories() :
-						'not loaded'
-					}
-				</ul>
-				<br/>
-				Bars
-				<br/>
-				<ul>
-					{ this.props.account ? 
-						this.displayVenues('Bars') :
-						'not loaded'
-					}
-				</ul>
-				<svg width="1000" height="800"></svg>
+				<center>
+				<h1>Categories / Venues</h1>
+				</center>
+				<div className="category-list">
+					<h2>Categories</h2>
+					<ul>
+						{ this.props.account ? 
+							this.displayCategories() :
+							'not loaded'
+						}
+					</ul>
+				</div>
+				<div className="venue-list">
+					<h2>Venues</h2>
+					<ul>
+						{ this.props.account ? 
+							this.displayVenues('Bars') :
+							'not loaded'
+						}
+					</ul>
+				</div>
 			</div>
 		);
 	}
