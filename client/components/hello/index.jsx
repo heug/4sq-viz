@@ -1,55 +1,97 @@
 import React from 'react';
-import {  } from 'react-bootstrap';
-import d3 from 'd3';
-// import store from '../../../../app.js';
-
-const STUB1 = require('../../../stubs/checkIn1');
-const STUB2 = require('../../../stubs/checkIn2');
-const STUB3 = require('../../../stubs/checkIn3');
-const STUB4 = require('../../../stubs/checkIn4');
-
-var checkInList = STUB1.response.checkins.items
-	.concat(STUB2.response.checkins.items)
-	.concat(STUB3.response.checkins.items)
-	.concat(STUB4.response.checkins.items);
-
-var store = {};
-
-for (var i = 0; i < checkInList.length; i++) {
-	if (checkInList[i].venue.categories[0]) {
-		if (!store[checkInList[i].venue.categories[0].pluralName]) {
-			store[checkInList[i].venue.categories[0].pluralName] = {
-				venues: {},
-				visitCount: 1
-			};
-		} else {
-			store[checkInList[i].venue.categories[0].pluralName].visitCount++;
-		}
-		if (!store[checkInList[i].venue.categories[0].pluralName].venues[checkInList[i].venue.name]) {
-			store[checkInList[i].venue.categories[0].pluralName].venues[checkInList[i].venue.name] = 1;
-		} else {
-			store[checkInList[i].venue.categories[0].pluralName].venues[checkInList[i].venue.name]++;
-		}
-	}
-};
+// import {  } from 'react-bootstrap';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { getAccount } from '../../actions';
+import './hello.scss';
+// import d3 from 'd3';
 
 class Hello extends React.Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: store
+			account: null
 		}
-		// console.log(this.state.data);
+	}
+
+	componentWillMount() {
+		this.props.getAccount();
+	}
+
+	displayCategories() {
+		if (!this.props.account || this.props.account.length === 0) {
+			return (
+				<h2>No Categories!</h2>
+			);
+		}
+		return (
+			Object.keys(this.props.account).map((category) => {
+				return (
+					<li key={category.id} className="category-item">
+						{ category }
+					</li>
+				)
+			})
+		);
+	}
+
+	displayVenues(cat) {
+		if (!this.props.account[cat] || this.props.account[cat].length === 0) {
+			return (
+				<h2>No Venues!</h2>
+			);
+		}
+		return (
+			Object.keys(this.props.account[cat].venues).map((venue) => {
+				return (
+					<li key={venue} className="venue-item">
+						{ venue }
+					</li>
+				);
+			})
+		);
 	}
 
 	render() {
 		return (
 			<div>
-				<h1>HELLO WORLD</h1>
-				<svg width="1000" height="800"></svg>
+				<center>
+				<h1>Categories / Venues</h1>
+				</center>
+				<div className="category-list">
+					<h2>Categories</h2>
+					<ul>
+						{ this.props.account ? 
+							this.displayCategories() :
+							'not loaded'
+						}
+					</ul>
+				</div>
+				<div className="venue-list">
+					<h2>Venues</h2>
+					<ul>
+						{ this.props.account ? 
+							this.displayVenues('Bars') :
+							'not loaded'
+						}
+					</ul>
+				</div>
 			</div>
 		);
 	}
 };
 
-export default Hello;
+const mapStateToProps = (state) => {
+	return {
+		account: state.account.account
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {1
+	return bindActionCreators({
+		getAccount: getAccount
+	}, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Hello);

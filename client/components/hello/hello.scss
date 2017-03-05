@@ -1,0 +1,26 @@
+ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+li {
+	padding-left: 0;
+}
+
+.category-list {
+	float: left;
+}
+
+.venue-list {
+	float: left;
+}
+
+.category-item:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.venue-item:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
