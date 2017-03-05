@@ -9,14 +9,17 @@ let checkInList = STUB1.response.checkins.items
 	.concat(STUB4.response.checkins.items);
 
 var store = {};
+var counter = 0;
 
 for (var i = 0; i < checkInList.length; i++) {
 	if (checkInList[i].venue.categories[0]) {
 		if (!store[checkInList[i].venue.categories[0].pluralName]) {
 			store[checkInList[i].venue.categories[0].pluralName] = {
 				venues: {},
-				visitCount: 1
+				visitCount: 1,
+				id: counter
 			};
+			counter++;
 		} else {
 			store[checkInList[i].venue.categories[0].pluralName].visitCount++;
 		}

@@ -18,9 +18,24 @@ class Hello extends React.Component {
 		this.props.getAccount();
 	}
 
+	displayCategories() {
+		if (!this.props.account || this.props.account.length === 0) {
+			return (
+				<h2>No Categories!</h2>
+			);
+		}
+		return (
+			Object.keys(this.props.account).map((category) => {
+				return (
+					<li key={category.id}>
+						{ category }
+					</li>
+				)
+			})
+		);
+	}
+
 	displayVenues(cat) {
-		console.log('inside fn', this.props.account['Diners'].venues);
-		console.log('venue list', Object.keys(this.props.account[cat].venues));
 		if (!this.props.account[cat] || this.props.account[cat].length === 0) {
 			return (
 				<h2>No Venues!</h2>
@@ -29,7 +44,7 @@ class Hello extends React.Component {
 		return (
 			Object.keys(this.props.account[cat].venues).map((venue) => {
 				return (
-					<li>
+					<li key={venue}>
 						{ venue }
 					</li>
 				);
@@ -41,10 +56,17 @@ class Hello extends React.Component {
 		return (
 			<div>
 				<h1>HELLO WORLD</h1>
-				{ this.props.account ? 
-					this.props.account['Diners'].visitCount : 
-					'not loaded' 
-				}
+				<br/>
+				Categories
+				<br/>
+				<ul>
+					{ this.props.account ? 
+						this.displayCategories() :
+						'not loaded'
+					}
+				</ul>
+				<br/>
+				Bars
 				<br/>
 				<ul>
 					{ this.props.account ? 
