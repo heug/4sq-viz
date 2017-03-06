@@ -11,8 +11,10 @@ class Hello extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			account: null
+			account: null,
+			activeCategory: null
 		}
+		this.handleCategory = this.handleCategory.bind(this);
 	}
 
 	componentWillMount() {
@@ -28,7 +30,8 @@ class Hello extends React.Component {
 		return (
 			Object.keys(this.props.account).map((category) => {
 				return (
-					<li key={category.id} className="category-item">
+					<li key={category} className="category-item" 
+					onClick={this.handleCategory}>
 						{ category }
 					</li>
 				)
@@ -36,14 +39,15 @@ class Hello extends React.Component {
 		);
 	}
 
-	displayVenues(cat) {
-		if (!this.props.account[cat] || this.props.account[cat].length === 0) {
+	displayVenues() {
+		if (!this.state.activeCategory) {
 			return (
 				<h2>No Venues!</h2>
 			);
 		}
 		return (
-			Object.keys(this.props.account[cat].venues).map((venue) => {
+			Object.keys(this.props.account[this.state.activeCategory].venues)
+			.map((venue) => {
 				return (
 					<li key={venue} className="venue-item">
 						{ venue }
@@ -51,6 +55,12 @@ class Hello extends React.Component {
 				);
 			})
 		);
+	}
+
+	handleCategory(e) {
+		this.setState({
+			activeCategory: e.target.innerText
+		});
 	}
 
 	render() {
@@ -72,7 +82,7 @@ class Hello extends React.Component {
 					<h2>Venues</h2>
 					<ul>
 						{ this.props.account ? 
-							this.displayVenues('Bars') :
+							this.displayVenues() :
 							'not loaded'
 						}
 					</ul>
