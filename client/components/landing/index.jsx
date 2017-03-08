@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Button } from 'react-bootstrap';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
-import { getAccount } from '../../actions';
+import { browserHistory } from 'react-router';
 import './landing.scss';
 // import d3 from 'd3';
 
@@ -25,6 +25,10 @@ class Landing extends React.Component {
 		}
 	}
 
+	handleLogin() {
+		browserHistory.push('/hello');
+	}
+
 	render() {
 		return (
 			<div>
@@ -45,7 +49,7 @@ class Landing extends React.Component {
 									<FormControl type="password" id="password" placeholder="Password" />
 								</FormGroup>
 								<br/>
-								<Button>
+								<Button onClick={this.handleLogin}>
 									Login
 								</Button>
 						</Form>

@@ -28,3 +28,12 @@ li {
 .count {
 	color: #999;
 }
+
+.back {
+	float: right;
+}
+
+.back:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}

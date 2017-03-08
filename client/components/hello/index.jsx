@@ -2,6 +2,7 @@ import React from 'react';
 // import {  } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link, browserHistory } from 'react-router';
 import { getAccount } from '../../actions';
 import './hello.scss';
 // import d3 from 'd3';
@@ -63,12 +64,19 @@ class Hello extends React.Component {
 		});
 	}
 
+	handleBack() {
+		browserHistory.push('/');
+	}
+
 	render() {
 		return (
 			<div>
 				<center>
 				<h1>Categories / Venues</h1>
 				</center>
+				<div className="back">
+					<span onClick={this.handleBack}>Back</span>
+				</div>
 				<div className="category-list">
 					<h2>Categories</h2>
 					<ul>
