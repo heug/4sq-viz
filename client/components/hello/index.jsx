@@ -1,5 +1,5 @@
 import React from 'react';
-// import {  } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
@@ -20,6 +20,10 @@ class Hello extends React.Component {
 
 	componentWillMount() {
 		this.props.getAccount();
+	}
+
+	testButton() {
+		console.log(Date.now());
 	}
 
 	displayCategories() {
@@ -73,6 +77,7 @@ class Hello extends React.Component {
 			<div>
 				<center>
 				<h1>Categories / Venues</h1>
+				<Button onClick={this.testButton}>Click me!</Button>
 				</center>
 				<div className="back">
 					<span onClick={this.handleBack}>Back</span>
