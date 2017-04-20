@@ -10,3 +10,5 @@ console.log(date);
 console.log(momentTest);
 console.log(Date.now());
 // 1490414697
+
+export default 

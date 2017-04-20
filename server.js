@@ -1,7 +1,7 @@
 const express = require('express');
 
 const get4sqData = require('./app');
-const getDate = require('./date');
+// const getDate = require('./date');
 
 const app = express();
 
@@ -11,10 +11,10 @@ app.get('/api/test', (req, res, next) => {
 	return res.json(get4sqData);
 });
 
+// TODO: Create Filtering Mechanism for venues (pagination)
 app.get('/api/filter', (req, res, next) => {
-	var start = req.query.start;
-	
-})
+	var start = req.query.start;	
+});
 
 app.get('*', (req, res) => {
   return res.sendFile(__dirname + '/client/index.html');
