@@ -10,48 +10,6 @@ import './map.scss';
 const accessTokens = require('../../../config/accessTokens');
 mapboxgl.accessToken = accessTokens.mapboxgl;
 
-const STUB_DATA = {
-	"type": "FeatureCollection",
-	"features": [
-		{
-			"type": "Feature",
-			"id": 1,
-			"geometry": {
-				"type": "Point",
-				"coordinates": [
-					-122.40852980833175,
-					37.77702490373948
-				]
-			},
-			"properties": {
-				"title": "Sightglass Coffee",
-				"description": "My favorite coffee!",
-				"marker-symbol": "cafe-15",
-				"marker-color": "#3bb2d0",
-				"marker-size": "small"
-			}
-		},
-		{
-			"type": "Feature",
-			"id": 2,
-			"geometry": {
-				"type": "Point",
-				"coordinates": [
-					-122.42140556016015,
-					37.77704078108561
-				]
-			},
-			"properties": {
-				"title": "The Grove",
-				"description": "It's a classic",
-				"marker-symbol": 2,
-				"marker-color": "#3bb2d0",
-				"marker-size": "medium"
-			}
-		}
-	]
-}
-
 class Map extends React.Component {
 
 	constructor(props) {
@@ -70,18 +28,31 @@ class Map extends React.Component {
 		  container: 'map-display',
 		  style: 'mapbox://styles/mapbox/streets-v9',
 		  center: [-122.40852980833175, 37.77702490373948],
-		  zoom: 10
+		  zoom: 7
 		});
 		map.on('load', () => {
 			console.log('loaded');
-			map.addLayer({
-				"id": "all",
-				"type": "circle",
-				"source": {
-					"type": "geojson",
-					"data": STUB_DATA
+			map.addSource("tester", {
+				"type": "geojson",
+				"data": this.props.checkIns
+			});
+
+			this.props.checkIns.features.forEach((feature) => {
+				let symbol = feature.properties['icon'];
+				let layerID = 'poi-' + symbol;
+				if (!map.getLayer(layerID)) {
+					map.addLayer({
+						'id': layerID,
+						'type': 'symbol',
+						'source': 'tester',
+						'layout': {
+							'icon-image': symbol + '-15',
+							'icon-allow-overlap': true
+						},
+						'filter': ['==', 'icon', symbol]
+					});
 				}
-			}, 'all');
+			})
 		});
 	}
 
@@ -136,9 +107,6 @@ class Map extends React.Component {
 				<center>
 				<h1>Map</h1>
 				</center>
-				<div className="back">
-					<span onClick={this.handleBack}>Back</span>
-				</div>
 				<div id="map-display">
 				</div>
 			</div>
@@ -157,7 +125,5 @@ const mapDispatchToProps = (dispatch) => {
 		getMapTime: getMapTime
 	}, dispatch);
 };
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
