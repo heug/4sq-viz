@@ -1,0 +1,52 @@
+.spacer {
+	padding-top: 200px
+}
+
+.hexagon {
+  position: relative;
+  width: 300px; 
+  height: 173.21px;
+  background-color: #2350cc;
+  // margin: 86.60px 0;
+  margin: auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+.hexagon:before,
+.hexagon:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 212.13px;
+  height: 212.13px;
+  -webkit-transform: scaleY(0.5774) rotate(-45deg);
+  -ms-transform: scaleY(0.5774) rotate(-45deg);
+  transform: scaleY(0.5774) rotate(-45deg);
+  background-color: inherit;
+  left: 43.9340px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+.hexagon:before {
+  top: -106.0660px;
+}
+
+.hexagon:after {
+  bottom: -106.0660px;
+}
+
+/*cover up extra shadows*/
+.hexagon span {
+  display: block;
+  position: absolute;
+  top:0px;
+  left: 0;
+  width:300px;
+  height:173.2051px;
+  z-index: 2;
+  background: inherit;
+}
+
+.login-box {
+	text-align: center;
+}
