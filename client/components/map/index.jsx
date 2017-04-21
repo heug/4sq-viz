@@ -5,13 +5,52 @@ import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import { getMapTime } from '../../actions';
 import mapboxgl from 'mapbox-gl';
-// import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import './map.scss';
-// import d3 from 'd3';
 
 const accessTokens = require('../../../config/accessTokens');
 mapboxgl.accessToken = accessTokens.mapboxgl;
 
+const STUB_DATA = {
+	"type": "FeatureCollection",
+	"features": [
+		{
+			"type": "Feature",
+			"id": 1,
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-122.40852980833175,
+					37.77702490373948
+				]
+			},
+			"properties": {
+				"title": "Sightglass Coffee",
+				"description": "My favorite coffee!",
+				"marker-symbol": "cafe-15",
+				"marker-color": "#3bb2d0",
+				"marker-size": "small"
+			}
+		},
+		{
+			"type": "Feature",
+			"id": 2,
+			"geometry": {
+				"type": "Point",
+				"coordinates": [
+					-122.42140556016015,
+					37.77704078108561
+				]
+			},
+			"properties": {
+				"title": "The Grove",
+				"description": "It's a classic",
+				"marker-symbol": 2,
+				"marker-color": "#3bb2d0",
+				"marker-size": "medium"
+			}
+		}
+	]
+}
 
 class Map extends React.Component {
 
@@ -30,7 +69,19 @@ class Map extends React.Component {
 		var map = new mapboxgl.Map({
 		  container: 'map-display',
 		  style: 'mapbox://styles/mapbox/streets-v9',
-		  center: [-74.50, 40]
+		  center: [-122.40852980833175, 37.77702490373948],
+		  zoom: 10
+		});
+		map.on('load', () => {
+			console.log('loaded');
+			map.addLayer({
+				"id": "all",
+				"type": "circle",
+				"source": {
+					"type": "geojson",
+					"data": STUB_DATA
+				}
+			}, 'all');
 		});
 	}
 
