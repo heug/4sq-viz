@@ -6,8 +6,8 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import allReducers from './reducers';
-import Routes from './routes';
-import './styles.scss';
+import Routes from './config/routes';
+import './index.scss';
 
 import { composeWithDevTools } from 'redux-devtools-extension';
 
