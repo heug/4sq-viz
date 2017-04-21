@@ -4,7 +4,6 @@ import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Button } from 'r
 // import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import './landing.scss';
-// import d3 from 'd3';
 
 // function FieldGroup(props) {
 // 	const { obj, ...rest } = props;
@@ -26,7 +25,11 @@ class Landing extends React.Component {
 	}
 
 	handleLogin() {
-		browserHistory.push('/hello');
+		browserHistory.push('/app/hello');
+	}
+
+	handleMap() {
+		browserHistory.push('/app/map');
 	}
 
 	render() {
@@ -34,6 +37,8 @@ class Landing extends React.Component {
 			<div>
 				<center>
 				<h1>Landing Page</h1>
+				<a><h2 onClick={this.handleMap}>MAP</h2></a>
+				<a><h2 onClick={this.handleLogin}>HELLO</h2></a>
 				</center>
 				<div className="spacer"></div>
 				<div className="hexagon"><span>
