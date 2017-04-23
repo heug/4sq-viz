@@ -8,52 +8,57 @@ let checkInList = STUB1.response.checkins.items
 	.concat(STUB3.response.checkins.items)
 	.concat(STUB4.response.checkins.items);
 
+function parseFoursquare(checkInList) {
+
+	let store = {};
+	store.geojson = { "type": "FeatureCollection", "features": [] }
+	store.venues = {}
+
+	checkInList.forEach((item) => {
+		let feature = {};
+
+		let category = item.venue.categories[0];
+		if (category) {
+			if (!store.venues[category.name]) {
+				store.venues[category.name] = {};
+				store.venues[category.name]['pluralName'] = category.pluralName;
+				store.venues[category.name]['count'] = 1;
+				// let categoryItem = {};
+				// Object.assign(categoryItem, Object.assign({},
+				// 	{ "name": category.name },
+				// 	{ "pluralName": category.pluralName },
+				// 	{ "count": 1 }
+				// ));
+				// Object.assign(store.venues, categoryItem);
+			} else {
+				store.venues[category.name]['count']++;
+			}
+		}
+
+		Object.assign(feature, 
+			{ "type": "Feature" },
+			{ "id": item.venue.id },
+			{ "geometry": Object.assign({}, 
+				{ "type": "Point" },
+				{ "coordinates": [item.venue.location.lng, item.venue.location.lat] }
+			)},
+			{ "properties": Object.assign({},
+				{ "title": item.venue.name },
+				{ "titleId": item.venue.id },
+				{ "titleUrl": item.venue.url },
+				{ "createdAt": item.createdAt },
+				{ "timeZoneOffset": item.timeZoneOffset },
+				{ "description": "Placeholder Text" },
+				{ "icon": "marker" }
+			)}
+		);
+		store.geojson.features.push(feature);
+	});
+	
+	return store;
+}
 var store = {};
-
-// Algo for extracting categories and venues
-
-// for (var i = 0; i < checkInList.length; i++) {
-// 	if (checkInList[i].venue.categories[0]) {
-// 		if (!store[checkInList[i].venue.categories[0].pluralName]) {
-// 			store[checkInList[i].venue.categories[0].pluralName] = {
-// 				venues: {},
-// 				visitCount: 1,
-// 				id: counter
-// 			};
-// 			counter++;
-// 		} else {
-// 			store[checkInList[i].venue.categories[0].pluralName].visitCount++;
-// 		}
-// 		if (!store[checkInList[i].venue.categories[0].pluralName].venues[checkInList[i].venue.name]) {
-// 			store[checkInList[i].venue.categories[0].pluralName].venues[checkInList[i].venue.name] = 1;
-// 		} else {
-// 			store[checkInList[i].venue.categories[0].pluralName].venues[checkInList[i].venue.name]++;
-// 		}
-// 	}
-// };
-
-// Let's make a geojson object.
-store.geojson = { "type": "FeatureCollection", "features": [] }
-checkInList.forEach((item) => {
-	let feature = {};
-	Object.assign(feature, 
-		{ "type": "Feature" },
-		{ "id": item.venue.id },
-		{ "geometry": Object.assign({}, 
-			{ "type": "Point" },
-			{ "coordinates": [item.venue.location.lng, item.venue.location.lat] }
-		)},
-		{ "properties": Object.assign({},
-			{ "title": item.venue.name },
-			{ "titleId": item.venue.id },
-			{ "titleUrl": item.venue.url },
-			{ "createdAt": item.createdAt },
-			{ "timeZoneOffset": item.timeZoneOffset },
-			{ "description": "Placeholder Text" },
-			{ "icon": "marker" }
-		)}
-	);
-	store.geojson.features.push(feature);
-});
+store = parseFoursquare(checkInList);
+console.log(store);
 
 module.exports = store;

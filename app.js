@@ -7,7 +7,11 @@ const app = express();
 
 app.use(express.static(__dirname + '/src'));
 
-app.get('/api/test', (req, res, next) => {
+app.get('/api/test/venues', (req, res, next) => {
+	return res.json(get4sqData.venues);
+});
+
+app.get('/api/test/categories', (req, res, next) => {
 	return res.json(get4sqData.geojson);
 });
 
