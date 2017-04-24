@@ -73,20 +73,36 @@ class Map extends React.Component {
 	}
 
 	displayCategories() {
-		if (!this.props.checkIns.features || this.props.checkIns.features.length === 0) {
+		if (!this.props.account || Object.keys(this.props.account).length === 0) {
 			return (
 				<h2>No Categories!</h2>
 			);
 		}
+		let store = [];
+		Object.keys(this.props.account).map((category) => {
+			store.push([this.props.account[category].pluralName, this.props.account[category].count]);
+		});
+		store.sort((a,b) => {
+			return b[1] - a[1];
+		});
 		return (
-			this.props.checkIns.features.map((feature) => {
+			store.map((category) => {
 				return (
-					<li key={feature.id} className="category-item">
-						{ feature.name }
+					<li key={category[0]} className="category-item">
+						{category[0]}: {category[1]}
 					</li>
 				)
 			})
 		);
+		// return (
+		// 	Object.keys(this.props.account).map((category) => {
+		// 		return (
+		// 			<li key={category} className="category-item">
+		// 				{this.props.account[category].pluralName}: {this.props.account[category].count}
+		// 			</li>
+		// 		)
+		// 	})
+		// );
 	}
 
 	displayVenues() {
@@ -124,7 +140,9 @@ class Map extends React.Component {
 					<div id="map-display">
 					</div>
 					<div id="map-filter">
-					Filter here
+						<ul>
+							{this.displayCategories()}
+						</ul>
 					</div>
 				</div>
 				<div id="map-details">
