@@ -1,5 +1,7 @@
 $font-stack: 'Roboto', Helvetica, sans-serif;
+$logo-font-stack: 'Istok Web', sans-serif;
 $primary-color: #999;
+$secondary-color: #37b3e8;
 
 html, body, form {
   font: 100% $font-stack;
@@ -26,4 +28,16 @@ p {
 #header, #footer {
 	width: 100%;
 	margin: auto;
+}
+
+#header {
+	font: 36px $logo-font-stack;
+	background-color: $secondary-color;
+	padding-left: 20px;
+	margin-bottom: 30px;
+}
+
+#map-container {
+	display: flex;
+	flex-direction: column;
 }

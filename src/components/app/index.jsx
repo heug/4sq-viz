@@ -11,14 +11,12 @@ class App extends React.Component {
 		return (
 			<div>
 				<Header />
-				<h1>app</h1>
 				<div className="app">
 					{ this.props.children }
 				</div>
 			</div>
 		);
 	}
-	
 };
 
 export default App;

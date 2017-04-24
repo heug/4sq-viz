@@ -7,8 +7,8 @@ class Header extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<h1>Cartographer for Foursquare</h1>
+			<div id="header">
+				Cartographer for Foursquare
 			</div>
 		);
 	}

@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
-import { getMapTime } from '../../actions';
+import { getAccount, getMapTime } from '../../actions';
 import mapboxgl from 'mapbox-gl';
 import './map.scss';
 
@@ -15,11 +15,13 @@ class Map extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			account: null,
 			checkIns: null
 		}
 	}
 
 	componentWillMount() {
+		this.props.getAccount();
 		this.props.getMapTime();
 	}
 
@@ -71,16 +73,16 @@ class Map extends React.Component {
 	}
 
 	displayCategories() {
-		if (!this.props.checkIns || this.props.checkIns.length === 0) {
+		if (!this.props.checkIns.features || this.props.checkIns.features.length === 0) {
 			return (
 				<h2>No Categories!</h2>
 			);
 		}
 		return (
-			Object.keys(this.props.checkIns).map((venue) => {
+			this.props.checkIns.features.map((feature) => {
 				return (
-					<li key={venue.id} className="category-item">
-						{ venue.name }
+					<li key={feature.id} className="category-item">
+						{ feature.name }
 					</li>
 				)
 			})
@@ -117,11 +119,16 @@ class Map extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<center>
-				<h1>Map</h1>
-				</center>
-				<div id="map-display">
+			<div id="map-container">
+				<div id="map-main-screen">
+					<div id="map-display">
+					</div>
+					<div id="map-filter">
+					Filter here
+					</div>
+				</div>
+				<div id="map-details">
+					List here
 				</div>
 			</div>
 		);
@@ -130,12 +137,14 @@ class Map extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
+		account: state.account.account,
 		checkIns: state.mapTime.checkIns
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
+		getAccount: getAccount,
 		getMapTime: getMapTime
 	}, dispatch);
 };

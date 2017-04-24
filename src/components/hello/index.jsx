@@ -111,7 +111,7 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = (dispatch) => {1
+const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		getAccount: getAccount
 	}, dispatch);

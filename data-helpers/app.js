@@ -27,9 +27,8 @@ methods.getCategoryCount = (checkInList) => {
 
 methods.getGeojson = (checkInList) => {
 	let store = { "type": "FeatureCollection", "features": [] }
-	let feature = {}
 	checkInList.forEach((item) => {
-		Object.assign(feature, 
+		let feature = Object.assign({}, 
 			{ "type": "Feature" },
 			{ "id": item.venue.id },
 			{ "geometry": Object.assign({}, 
