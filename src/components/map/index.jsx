@@ -7,7 +7,7 @@ import { getMapTime } from '../../actions';
 import mapboxgl from 'mapbox-gl';
 import './map.scss';
 
-const accessTokens = require('../../../config/accessTokens');
+const accessTokens = require('../../config/accessTokens');
 mapboxgl.accessToken = accessTokens.mapboxgl;
 
 class Map extends React.Component {
@@ -28,7 +28,7 @@ class Map extends React.Component {
 			container: 'map-display',
 			style: 'mapbox://styles/mapbox/streets-v9',
 			center: [-122.40852980833175, 37.77702490373948],
-			zoom: 7
+			zoom: 12
 		});
 		map.on('load', () => {
 			console.log('loaded');
@@ -53,12 +53,6 @@ class Map extends React.Component {
 					});
 				}
 			});
-			 //    map.on('click', 'places', function (e) {
-		//     new mapboxgl.Popup()
-		//         .setLngLat(e.features[0].geometry.coordinates)
-		//         .setHTML(e.features[0].properties.description)
-		//         .addTo(map);
-		// });
 			map.on('click', 'poi-marker', (e) => {
 				new mapboxgl.Popup()
 					.setLngLat(e.features[0].geometry.coordinates)

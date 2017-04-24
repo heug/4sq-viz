@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
-const url = '/api/test';
-const mapUrl = '/api/test';
+const url = '/api/test/venues';
+const mapUrl = '/api/test/categories';
 
 export const requestAccount = () => {
 	return {
