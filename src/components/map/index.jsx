@@ -33,7 +33,6 @@ class Map extends React.Component {
 			zoom: 12
 		});
 		map.on('load', () => {
-			console.log('loaded');
 			map.addSource("tester", {
 				"type": "geojson",
 				"data": this.props.checkIns
@@ -103,34 +102,6 @@ class Map extends React.Component {
 		// 		)
 		// 	})
 		// );
-	}
-
-	displayVenues() {
-		if (!this.state.activeCategory) {
-			return (
-				<h2>No Venues!</h2>
-			);
-		}
-		return (
-			Object.keys(this.props.account[this.state.activeCategory].venues)
-			.map((venue) => {
-				return (
-					<li key={venue} className="venue-item">
-						{ venue }
-					</li>
-				);
-			})
-		);
-	}
-
-	handleCategory(e) {
-		this.setState({
-			activeCategory: e.target.innerText
-		});
-	}
-
-	handleBack() {
-		browserHistory.push('/');
 	}
 
 	render() {

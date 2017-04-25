@@ -1,5 +1,12 @@
 const methods = {}
 
+methods.getCategories = (categories) => {
+	let store = {};
+	categories.forEach((category) => {
+		console.log(category.name);
+	});
+}
+
 methods.getCategoryCount = (checkInList) => {
 	let store = {};
 	checkInList.forEach((item) => {
@@ -41,6 +48,7 @@ methods.getGeojson = (checkInList) => {
 				{ "titleUrl": item.venue.url },
 				{ "createdAt": item.createdAt },
 				{ "timeZoneOffset": item.timeZoneOffset },
+				{ "category": item.venue.categories },
 				{ "description": "Placeholder Text" },
 				{ "icon": "marker" }
 			)}
