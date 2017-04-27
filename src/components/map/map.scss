@@ -9,10 +9,54 @@
 
 #map-filter {
 	height: 70%;
-	overflow: scroll;
+	// overflow: scroll;
 	padding-left: 30px;
 }
 
 #map-details {
+
+}
+
+.category-item-container {
+	// width: 200px;
+	height: 50px;
+	overflow: auto;
+	// text-align: center;
+	background-color: rgba(42,96,191,1);
+	color: white;
+}
+
+.category-item-container:after,
+.category-item {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.category-item-container:after {
+  content: '';
+  height: 100%;
+  margin-left: -0.25em; /* To offset spacing. May vary by font */
+  // width: 10px; /* to show the inserted pseudo element */
+  // background-color: lightgreen; /* to show the inserted pseudo element */
+}
+
+.category-item {
+	// vertical-align: middle;
+	padding-left: 5px;
+	max-width: 99%;
+}
+
+.divider {
+	color: black;
+	width: 100%;
+	border: solid;
+	border-width: 0.5px
+}
+
+.category-venue {
+	
+}
+
+.category-count {
 
 }

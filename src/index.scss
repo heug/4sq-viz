@@ -1,17 +1,19 @@
+@import "../bower_components/Skeleton-Sass/scss/skeleton";
+
 $font-stack: 'Roboto', Helvetica, sans-serif;
 $logo-font-stack: 'Istok Web', sans-serif;
 $primary-color: #999;
 $secondary-color: #37b3e8;
 
-html, body, form {
-  font: 100% $font-stack;
-	margin: 0;
-	padding: 0;
-}
+// html, body, form {
+//   font: 100% $font-stack;
+// 	margin: 0;
+// 	padding: 0;
+// }
 
-body {
-  background-color: $primary-color;
-}
+// body {
+//   background-color: $primary-color;
+// }
 
 a {
 	color: #039;

@@ -26,49 +26,49 @@ class Map extends React.Component {
 	}
 
 	componentDidMount() {
-		var map = new mapboxgl.Map({
-			container: 'map-display',
-			style: 'mapbox://styles/mapbox/streets-v9',
-			center: [-122.40852980833175, 37.77702490373948],
-			zoom: 12
-		});
-		map.on('load', () => {
-			map.addSource("tester", {
-				"type": "geojson",
-				"data": this.props.checkIns
-			});
+		// var map = new mapboxgl.Map({
+		// 	container: 'map-display',
+		// 	style: 'mapbox://styles/mapbox/streets-v9',
+		// 	center: [-122.40852980833175, 37.77702490373948],
+		// 	zoom: 12
+		// });
+		// map.on('load', () => {
+		// 	map.addSource("tester", {
+		// 		"type": "geojson",
+		// 		"data": this.props.checkIns
+		// 	});
 
-			this.props.checkIns.features.forEach((feature) => {
-				let symbol = feature.properties['icon'];
-				let layerID = 'poi-' + symbol;
-				if (!map.getLayer(layerID)) {
-					map.addLayer({
-						'id': layerID,
-						'type': 'symbol',
-						'source': 'tester',
-						'layout': {
-							'icon-image': symbol + '-15',
-							'icon-allow-overlap': true,
-						},
-						'filter': ['==', 'icon', symbol]
-					});
-				}
-			});
-			map.on('click', 'poi-marker', (e) => {
-				new mapboxgl.Popup()
-					.setLngLat(e.features[0].geometry.coordinates)
-					.setText(e.features[0].properties.title)
-					.addTo(map)
-			});
+		// 	this.props.checkIns.features.forEach((feature) => {
+		// 		let symbol = feature.properties['icon'];
+		// 		let layerID = 'poi-' + symbol;
+		// 		if (!map.getLayer(layerID)) {
+		// 			map.addLayer({
+		// 				'id': layerID,
+		// 				'type': 'symbol',
+		// 				'source': 'tester',
+		// 				'layout': {
+		// 					'icon-image': symbol + '-15',
+		// 					'icon-allow-overlap': true,
+		// 				},
+		// 				'filter': ['==', 'icon', symbol]
+		// 			});
+		// 		}
+		// 	});
+		// 	map.on('click', 'poi-marker', (e) => {
+		// 		new mapboxgl.Popup()
+		// 			.setLngLat(e.features[0].geometry.coordinates)
+		// 			.setText(e.features[0].properties.title)
+		// 			.addTo(map)
+		// 	});
 
-			map.on('mouseenter', 'poi-marker', () => {
-				map.getCanvas().style.cursor = 'pointer';
-			});
+		// 	map.on('mouseenter', 'poi-marker', () => {
+		// 		map.getCanvas().style.cursor = 'pointer';
+		// 	});
 
-			map.on('mouseleave', 'poi-marker', () => {
-				map.getCanvas().style.cursor = '';
-			});
-		});
+		// 	map.on('mouseleave', 'poi-marker', () => {
+		// 		map.getCanvas().style.cursor = '';
+		// 	});
+		// });
 	}
 
 	displayCategories() {
@@ -87,9 +87,11 @@ class Map extends React.Component {
 		return (
 			store.map((category) => {
 				return (
-					<li key={category[0]} className="category-item">
-						{category[0]}: {category[1]}
-					</li>
+					<div key={category[0]} className="category-item-container">
+						<div className="category-item">
+							{category[0]}: {category[1]}
+						</div>
+					</div>
 				)
 			})
 		);
@@ -109,11 +111,10 @@ class Map extends React.Component {
 			<div id="map-container">
 				<div id="map-main-screen">
 					<div id="map-display">
+					MAPMAPMAP
 					</div>
 					<div id="map-filter">
-						<ul>
-							{this.displayCategories()}
-						</ul>
+						{this.displayCategories()}
 					</div>
 				</div>
 				<div id="map-details">
