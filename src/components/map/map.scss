@@ -1,5 +1,31 @@
-#map-main-screen {
+.flex-parent {
 	display: flex;
+	justify-content: space-between;
+	min-height: 100px;
+	width: auto;
+}
+
+.search-state {
+	width: 100%;
+	border: 1px;
+	border-style: solid;
+	margin: 15px;
+}
+
+.save-button {
+	text-align: center;
+	margin-top: 15px;
+	width: 200px;
+}
+
+.search-tag {
+	float: left;
+	border-radius: 4px;
+	height: 28px;
+	line-height: 28px;
+	margin: 0 8px 6px 0;
+	padding: 0 1px 2px 8px;
+	background-color: #37b3e8;
 }
 
 #map-display {
@@ -9,13 +35,9 @@
 
 #map-filter {
 	height: 70%;
-	// overflow: scroll;
 	padding-left: 30px;
 }
 
-#map-details {
-
-}
 
 .category-item-container {
 	// width: 200px;
@@ -51,12 +73,4 @@
 	width: 100%;
 	border: solid;
 	border-width: 0.5px
-}
-
-.category-venue {
-	
-}
-
-.category-count {
-
 }

@@ -1,31 +1,40 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import { getAccount, getMapTime } from '../../actions';
 import mapboxgl from 'mapbox-gl';
+// import closeX from '../../assets/close-button.png';
 import './map.scss';
 
 const accessTokens = require('../../config/accessTokens');
 mapboxgl.accessToken = accessTokens.mapboxgl;
 
-class Map extends React.Component {
-
-	constructor(props) {
-		super(props);
-		this.state = {
-			account: null,
-			checkIns: null
-		}
+class SearchBar extends Component {
+	render() {
+		return (
+			<div className="search-component">
+				<div className="flex-parent">
+					<div className="search-state">
+						<span className="search-tag"><strong>Oakland, CA</strong><img src={closeX}/></span>
+						<span className="search-tag"><strong>San Francisco, CA</strong></span>
+					</div>
+					<div className="save-button">
+						<button>Save</button>
+					</div>
+				</div>
+				<div className="search-filters">
+					Search Filters
+				</div>
+			</div>
+		);
 	}
+}
 
-	componentWillMount() {
-		this.props.getAccount();
-		this.props.getMapTime();
-	}
+class MapboxMap extends Component {
 
-	componentDidMount() {
+	// componentDidMount() {
 		// var map = new mapboxgl.Map({
 		// 	container: 'map-display',
 		// 	style: 'mapbox://styles/mapbox/streets-v9',
@@ -69,6 +78,30 @@ class Map extends React.Component {
 		// 		map.getCanvas().style.cursor = '';
 		// 	});
 		// });
+	// }
+
+	render() {
+		return (
+			<div id="map-display">
+				MAPMAPMAP
+			</div>
+		);
+	}
+}
+
+class Map extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			account: null,
+			checkIns: null
+		}
+	}
+
+	componentWillMount() {
+		this.props.getAccount();
+		this.props.getMapTime();
 	}
 
 	displayCategories() {
@@ -112,17 +145,28 @@ class Map extends React.Component {
 
 	render() {
 		return (
-			<div id="map-container">
-				<div id="map-main-screen">
-					<div id="map-display">
-					MAPMAPMAP
+			<div>
+				<div class="row">
+					<div class="one column">
 					</div>
-					<div id="map-filter">
-						{this.displayCategories()}
+					<div class="ten columns">
+						<SearchBar/>
+						<MapboxMap/>
+					</div>
+					<div class="one column">
 					</div>
 				</div>
-				<div id="map-details">
-					List here
+				<div class="row">
+					<div class="one column">
+					</div>
+					<div class="five columns">
+						List of checkins
+					</div>
+					<div class="five columns">
+						Checkin Details on click
+					</div>
+					<div class="one column">
+					</div>
 				</div>
 			</div>
 		);
