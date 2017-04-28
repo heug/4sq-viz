@@ -33,6 +33,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
+    "file-loader": "^0.11.1",
     "ignore-styles": "^5.0.1",
     "jsdom": "^9.12.0",
     "jsdom-global": "^2.1.1",
@@ -48,6 +49,7 @@
     "sass-loader": "^5.0.1",
     "sinon": "^2.1.0",
     "style-loader": "^0.13.1",
+    "url-loader": "^0.5.8",
     "webpack": "^2.2.1",
     "webpack-node-externals": "^1.5.4"
   },

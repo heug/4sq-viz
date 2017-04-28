@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import { getAccount, getMapTime } from '../../actions';
 import mapboxgl from 'mapbox-gl';
-// import closeX from '../../assets/close-button.png';
 import './map.scss';
 
+const closeX = '../../assets/close-button.png';
 const accessTokens = require('../../config/accessTokens');
 mapboxgl.accessToken = accessTokens.mapboxgl;
 
@@ -17,15 +17,35 @@ class SearchBar extends Component {
 			<div className="search-component">
 				<div className="flex-parent">
 					<div className="search-state">
-						<span className="search-tag"><strong>Oakland, CA</strong><img src={closeX}/></span>
-						<span className="search-tag"><strong>San Francisco, CA</strong></span>
+						<span className="search-tag"><strong>Oakland, CA</strong><img src={closeX} className="closeX"/></span>
+						<span className="search-tag"><strong>San Francisco, CA</strong><img src={closeX} className="closeX"/></span>
+						<span className="search-tag"><strong>Coffee Shops</strong><img src={closeX} className="closeX"/></span>
+						<span className="search-tag"><strong>Tariq Ismail</strong><img src={closeX} className="closeX"/></span>
+						<span className="search-tag"><strong>Japan</strong><img src={closeX} className="closeX"/></span>
+						<span className="search-tag"><strong>Last 3 months</strong><img src={closeX} className="closeX"/></span>
 					</div>
 					<div className="save-button">
 						<button>Save</button>
 					</div>
 				</div>
-				<div className="search-filters">
-					Search Filters
+				<div className="dropdown-parent">
+					<div className="search-filters">
+						<div className="search-dropdown">
+							Location ▾
+						</div>
+						<div className="search-dropdown">
+							Categories ▾
+						</div>
+						<div className="search-dropdown">
+							Friends ▾
+						</div>
+						<div className="search-dropdown">
+							Date Range ▾
+						</div>
+					</div>
+					<div className="saved-filters">
+						Saved Filters ▾
+					</div>
 				</div>
 			</div>
 		);
@@ -146,26 +166,26 @@ class Map extends Component {
 	render() {
 		return (
 			<div>
-				<div class="row">
-					<div class="one column">
+				<div className="row">
+					<div className="one column">
 					</div>
-					<div class="ten columns">
+					<div className="ten columns">
 						<SearchBar/>
 						<MapboxMap/>
 					</div>
-					<div class="one column">
+					<div className="one column">
 					</div>
 				</div>
-				<div class="row">
-					<div class="one column">
+				<div className="row">
+					<div className="one column">
 					</div>
-					<div class="five columns">
+					<div className="five columns">
 						List of checkins
 					</div>
-					<div class="five columns">
+					<div className="five columns">
 						Checkin Details on click
 					</div>
-					<div class="one column">
+					<div className="one column">
 					</div>
 				</div>
 			</div>
