@@ -89,7 +89,10 @@ class Map extends React.Component {
 				return (
 					<div key={category[0]} className="category-item-container">
 						<div className="category-item">
-							{category[0]}: {category[1]}
+							<form className="category-item">
+								{category[0]}: {category[1]}
+								<input name={category[0]} type="checkbox" checked="true" value={category[0]}/>	
+							</form>
 						</div>
 					</div>
 				)
@@ -104,6 +107,7 @@ class Map extends React.Component {
 		// 		)
 		// 	})
 		// );
+		// {category[0]}: {category[1]}
 	}
 
 	render() {
