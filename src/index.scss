@@ -1,10 +1,15 @@
+@import "../bower_components/Skeleton-Sass/scss/skeleton";
+
 $font-stack: 'Roboto', Helvetica, sans-serif;
-$primary-color: #999;
+$logo-font-stack: 'Istok Web', sans-serif;
+$primary-color: #DDD;
+$secondary-color: #37b3e8;
 
 html, body, form {
   font: 100% $font-stack;
 	margin: 0;
 	padding: 0;
+	color: #444;
 }
 
 body {
@@ -26,4 +31,16 @@ p {
 #header, #footer {
 	width: 100%;
 	margin: auto;
+}
+
+#header {
+	font: 36px $logo-font-stack;
+	background-color: $secondary-color;
+	padding-left: 20px;
+	margin-bottom: 30px;
+}
+
+#map-container {
+	display: flex;
+	flex-direction: column;
 }

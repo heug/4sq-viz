@@ -3,18 +3,8 @@ import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Button } from 'r
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import './landing.scss';
-
-// function FieldGroup(props) {
-// 	const { obj, ...rest } = props;
-// 	// {help && <HelpBlock>{help}</HelpBlock>}
-// 	return (
-// 		<FormGroup controlId={obj.id}>
-// 			<ControlLabel>{obj.label}</ControlLabel>
-// 			<FormControl {...rest} />
-// 		</FormGroup>
-// 	);
-// }
 
 class Landing extends React.Component {
 
@@ -39,6 +29,8 @@ class Landing extends React.Component {
 				<h1>Landing Page</h1>
 				<a><h2 onClick={this.handleMap}>MAP</h2></a>
 				<a><h2 onClick={this.handleLogin}>HELLO</h2></a>
+				<Link to="map">MAP</Link>
+				<Link to="hello">HELLO</Link>
 				</center>
 				<div className="spacer"></div>
 				<div className="hexagon"><span>

@@ -7,22 +7,30 @@ const STUB1 = require('./stubs/checkIn1');
 const STUB2 = require('./stubs/checkIn2');
 const STUB3 = require('./stubs/checkIn3');
 const STUB4 = require('./stubs/checkIn4');
+const CATEGORIES_STUB = require('./stubs/categories');
 
 let tester = STUB1.response.checkins.items
 	.concat(STUB2.response.checkins.items)
 	.concat(STUB3.response.checkins.items)
 	.concat(STUB4.response.checkins.items);
 
+let categories = CATEGORIES_STUB.response.categories;
+
 const app = express();
 
 app.use(express.static(__dirname + '/src'));
+
+app.get('/api/test/taxonomy', (req, res, next) => {
+	return res.json(get4sqData.getCategories(categories));
+});
 
 app.get('/api/test/venues', (req, res, next) => {
 	return res.json(get4sqData.getCategoryCount(tester));
 });
 
 app.get('/api/test/categories', (req, res, next) => {
-	return res.json(get4sqData.getGeojson(tester));
+	let datum = get4sqData.getGeojson(tester);
+	return res.json(datum);
 });
 
 // TODO: Create Filtering Mechanism for venues (pagination)
