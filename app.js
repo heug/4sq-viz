@@ -29,7 +29,8 @@ app.get('/api/test/venues', (req, res, next) => {
 });
 
 app.get('/api/test/categories', (req, res, next) => {
-	return res.json(get4sqData.getGeojson(tester));
+	let datum = get4sqData.getGeojson(tester);
+	return res.json(datum);
 });
 
 // TODO: Create Filtering Mechanism for venues (pagination)

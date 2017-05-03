@@ -12,17 +12,59 @@ const accessTokens = require('../../config/accessTokens');
 mapboxgl.accessToken = accessTokens.mapboxgl;
 
 class SearchBar extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			searchTags: [
+				{
+					category: 'location',
+					value: 'Oakland, CA',
+					data: '1234-Oakland, CA'
+				},
+				{
+					category: 'location',
+					value: 'San Francisco, CA',
+					data: '2345-San Francisco, CA'
+				},
+				{
+					category: 'location',
+					value: 'New York City, NY',
+					data: '3456-New York City, NY'
+				},
+				{
+					category: 'location',
+					value: 'Chicago, IL',
+					data: '4567-Chicago, IL'
+				}
+			]
+		}
+	}
+
+	renderSearchTags() {
+		if (this.state.searchTags.length > 0) {
+			return (
+				this.state.searchTags.map((tag) => {
+					return (
+						<span className="search-tag" key={tag.data}><strong>{tag.value}</strong><img src={closeX} className="closeX"/></span>
+					);
+				})
+			);
+		}
+	}
+						// <span className="search-tag"><strong>Oakland, CA</strong><img src={closeX} className="closeX"/></span>
+						// <span className="search-tag"><strong>San Francisco, CA</strong><img src={closeX} className="closeX"/></span>
+						// <span className="search-tag"><strong>Coffee Shops</strong><img src={closeX} className="closeX"/></span>
+						// <span className="search-tag"><strong>Tariq Ismail</strong><img src={closeX} className="closeX"/></span>
+						// <span className="search-tag"><strong>Japan</strong><img src={closeX} className="closeX"/></span>
+						// <span className="search-tag"><strong>Last 3 months</strong><img src={closeX} className="closeX"/></span>
+
 	render() {
 		return (
 			<div className="search-component">
 				<div className="flex-parent">
 					<div className="search-state">
-						<span className="search-tag"><strong>Oakland, CA</strong><img src={closeX} className="closeX"/></span>
-						<span className="search-tag"><strong>San Francisco, CA</strong><img src={closeX} className="closeX"/></span>
-						<span className="search-tag"><strong>Coffee Shops</strong><img src={closeX} className="closeX"/></span>
-						<span className="search-tag"><strong>Tariq Ismail</strong><img src={closeX} className="closeX"/></span>
-						<span className="search-tag"><strong>Japan</strong><img src={closeX} className="closeX"/></span>
-						<span className="search-tag"><strong>Last 3 months</strong><img src={closeX} className="closeX"/></span>
+						{this.renderSearchTags()}
 					</div>
 					<div className="save-button">
 						<button>Save</button>
@@ -88,56 +130,55 @@ class SearchBar extends Component {
 
 class MapboxMap extends Component {
 
-	// componentDidMount() {
-		// var map = new mapboxgl.Map({
-		// 	container: 'map-display',
-		// 	style: 'mapbox://styles/mapbox/streets-v9',
-		// 	center: [-122.40852980833175, 37.77702490373948],
-		// 	zoom: 12
-		// });
-		// map.on('load', () => {
-		// 	map.addSource("tester", {
-		// 		"type": "geojson",
-		// 		"data": this.props.checkIns
-		// 	});
+	componentDidMount() {
+		var map = new mapboxgl.Map({
+			container: 'map-display',
+			style: 'mapbox://styles/mapbox/streets-v9',
+			center: [-122.40852980833175, 37.77702490373948],
+			zoom: 12
+		});
+		map.on('load', () => {
+			map.addSource("tester", {
+				"type": "geojson",
+				"data": this.props.checkIns
+			});
 
-		// 	this.props.checkIns.features.forEach((feature) => {
-		// 		let symbol = feature.properties['icon'];
-		// 		let layerID = 'poi-' + symbol;
-		// 		if (!map.getLayer(layerID)) {
-		// 			map.addLayer({
-		// 				'id': layerID,
-		// 				'type': 'symbol',
-		// 				'source': 'tester',
-		// 				'layout': {
-		// 					'icon-image': symbol + '-15',
-		// 					'icon-allow-overlap': true,
-		// 				},
-		// 				'filter': ['==', 'icon', symbol]
-		// 			});
-		// 		}
-		// 	});
-		// 	map.on('click', 'poi-marker', (e) => {
-		// 		new mapboxgl.Popup()
-		// 			.setLngLat(e.features[0].geometry.coordinates)
-		// 			.setText(e.features[0].properties.title)
-		// 			.addTo(map)
-		// 	});
+			this.props.checkIns.features.forEach((feature) => {
+				let symbol = feature.properties['icon'];
+				let layerID = 'poi-' + symbol;
+				if (!map.getLayer(layerID)) {
+					map.addLayer({
+						'id': layerID,
+						'type': 'symbol',
+						'source': 'tester',
+						'layout': {
+							'icon-image': symbol + '-15',
+							'icon-allow-overlap': true,
+						},
+						'filter': ['==', 'icon', symbol]
+					});
+				}
+			});
+			map.on('click', 'poi-marker', (e) => {
+				new mapboxgl.Popup()
+					.setLngLat(e.features[0].geometry.coordinates)
+					.setText(e.features[0].properties.title)
+					.addTo(map)
+			});
 
-		// 	map.on('mouseenter', 'poi-marker', () => {
-		// 		map.getCanvas().style.cursor = 'pointer';
-		// 	});
+			map.on('mouseenter', 'poi-marker', () => {
+				map.getCanvas().style.cursor = 'pointer';
+			});
 
-		// 	map.on('mouseleave', 'poi-marker', () => {
-		// 		map.getCanvas().style.cursor = '';
-		// 	});
-		// });
-	// }
+			map.on('mouseleave', 'poi-marker', () => {
+				map.getCanvas().style.cursor = '';
+			});
+		});
+	}
 
 	render() {
 		return (
 			<div id="map-display">
-				MAPMAPMAP
 			</div>
 		);
 	}
@@ -157,6 +198,52 @@ class Map extends Component {
 		this.props.getAccount();
 		this.props.getMapTime();
 	}
+
+	// componentDidMount() {
+	// 	var map = new mapboxgl.Map({
+	// 		container: 'map-display',
+	// 		style: 'mapbox://styles/mapbox/streets-v9',
+	// 		center: [-122.40852980833175, 37.77702490373948],
+	// 		zoom: 12
+	// 	});
+	// 	map.on('load', () => {
+	// 		map.addSource("tester", {
+	// 			"type": "geojson",
+	// 			"data": this.props.checkIns
+	// 		});
+
+	// 		this.props.checkIns.features.forEach((feature) => {
+	// 			let symbol = feature.properties['icon'];
+	// 			let layerID = 'poi-' + symbol;
+	// 			if (!map.getLayer(layerID)) {
+	// 				map.addLayer({
+	// 					'id': layerID,
+	// 					'type': 'symbol',
+	// 					'source': 'tester',
+	// 					'layout': {
+	// 						'icon-image': symbol + '-15',
+	// 						'icon-allow-overlap': true,
+	// 					},
+	// 					'filter': ['==', 'icon', symbol]
+	// 				});
+	// 			}
+	// 		});
+	// 		map.on('click', 'poi-marker', (e) => {
+	// 			new mapboxgl.Popup()
+	// 				.setLngLat(e.features[0].geometry.coordinates)
+	// 				.setText(e.features[0].properties.title)
+	// 				.addTo(map)
+	// 		});
+
+	// 		map.on('mouseenter', 'poi-marker', () => {
+	// 			map.getCanvas().style.cursor = 'pointer';
+	// 		});
+
+	// 		map.on('mouseleave', 'poi-marker', () => {
+	// 			map.getCanvas().style.cursor = '';
+	// 		});
+	// 	});
+	// }
 
 	displayCategories() {
 		if (!this.props.account || Object.keys(this.props.account).length === 0) {
@@ -185,16 +272,6 @@ class Map extends Component {
 				)
 			})
 		);
-		// return (
-		// 	Object.keys(this.props.account).map((category) => {
-		// 		return (
-		// 			<li key={category} className="category-item">
-		// 				{this.props.account[category].pluralName}: {this.props.account[category].count}
-		// 			</li>
-		// 		)
-		// 	})
-		// );
-		// {category[0]}: {category[1]}
 	}
 
 	render() {
@@ -205,7 +282,9 @@ class Map extends Component {
 					</div>
 					<div className="ten columns">
 						<SearchBar/>
-						<MapboxMap/>
+						<div id="map-display">
+							Map goes here!
+						</div>
 					</div>
 					<div className="one column">
 					</div>
