@@ -1,3 +1,4 @@
+// Layout stuff
 .flex-parent {
 	display: flex;
 	justify-content: space-between;
@@ -6,24 +7,20 @@
 	background-color: #FFF;
 }
 
-.dropdown-parent {
+.filter-row {
 	display: flex;
 	justify-content: space-between;
 	width: auto;
+	border-top: 1px solid #999;
 }
 
+// modules for search box
 .search-state {
 	width: 100%;
 	// border: 1px;
 	// border-style: solid;
 	margin: 15px;
 	cursor: text;
-}
-
-.save-button {
-	text-align: center;
-	margin-top: 15px;
-	width: 200px;
 }
 
 .search-tag {
@@ -44,20 +41,43 @@
 	padding: 0 5px;
 }
 
-.search-filters {
-	width: 100%;
-	// border: 1px;
-	// border-style: solid;
-	background-color: #EEE;
-	// display: flex;
-	// justify-content: space-between;
+.save-button {
+	text-align: center;
+	margin-top: 15px;
+	width: 200px;
 }
 
+// modules for filter dropdowns under search box
+.filter-fields {
+	width: 100%;
+	background-color: #EEE;
+}
 
-.search-dropdown {
+.filter-dropdown {
 	display: inline-block;
+	position: relative;
 	padding: 10px 15px;
 	background-color: #EEE;
+}
+
+.dropdown-group {
+	position: absolute;
+	left: 15px;
+	top: 32px;
+	width: 120px;
+	border: 1px;
+	border-color: #333;
+	box-shadow: 0 2px grey;
+	// padding: 10px 15px;
+	z-index: 1;
+}
+
+.hidden {
+	display: none;
+}
+
+.filter-dropdown:hover .dropdown-group {
+	display: block;
 }
 
 .saved-filters {
@@ -68,13 +88,25 @@
 	padding: 10px 15px;
 }
 
-.search-dropdown:hover,
+.dropdown-row {
+	padding: 10px 15px;
+	background-color: #FFF;
+}
+
+.dropdown-row:hover {
+	cursor: pointer;
+	background-color: #333;
+	color: #FFF;
+}
+
+.filter-dropdown:hover,
 .saved-filters:hover {
 	cursor: pointer;
 	background-color: #FFF;
 	color: #000;
 }
 
+// MAP STUFF
 #map-display {
 	width: 70%;
 	height: 70%;

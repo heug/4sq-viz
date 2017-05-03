@@ -28,18 +28,52 @@ class SearchBar extends Component {
 						<button>Save</button>
 					</div>
 				</div>
-				<div className="dropdown-parent">
-					<div className="search-filters">
-						<div className="search-dropdown">
+				<div className="filter-row">
+					<div className="filter-fields">
+						<div className="filter-dropdown">
 							Location ▾
+							<div className="dropdown-group location-group hidden">
+								<div className="dropdown-row">
+									N America
+								</div>
+								<div className="dropdown-row">
+									S America
+								</div>
+								<div className="dropdown-row">
+									Asia
+								</div>
+								<div className="dropdown-row">
+									Europe
+								</div>
+								<div className="dropdown-row">
+									Australia
+								</div>
+								<div className="dropdown-row">
+									Middle East
+								</div>
+								<div className="dropdown-row">
+									Africa
+								</div>
+							</div>
 						</div>
-						<div className="search-dropdown">
+						<div className="filter-dropdown">
 							Categories ▾
+							<div className="dropdown-group category-group hidden">
+								<div className="dropdown-row">
+									Coffee Shops
+								</div>
+								<div className="dropdown-row">
+									Restaurants
+								</div>
+								<div className="dropdown-row">
+									Bars
+								</div>
+							</div>
 						</div>
-						<div className="search-dropdown">
+						<div className="filter-dropdown">
 							Friends ▾
 						</div>
-						<div className="search-dropdown">
+						<div className="filter-dropdown">
 							Date Range ▾
 						</div>
 					</div>
