@@ -26,6 +26,18 @@ class SearchBar extends Component {
 					category: 'location',
 					value: 'San Francisco, CA',
 					id: '2345-San Francisco, CA'
+				}
+			],
+			locations: [
+				{
+					category: 'location',
+					value: 'Oakland, CA',
+					id: '1234-Oakland, CA'
+				},
+				{
+					category: 'location',
+					value: 'San Francisco, CA',
+					id: '2345-San Francisco, CA'
 				},
 				{
 					category: 'location',
@@ -38,6 +50,15 @@ class SearchBar extends Component {
 					id: '4567-Chicago, IL'
 				}
 			]
+		}
+	}
+
+	addTag(obj) {
+		let tagExists = this.state.searchTags.filter((tag) => {
+			return tag.id === obj.id;
+		})[0];
+		if (!tagExists) {
+			this.setState({searchTags: this.state.searchTags.concat(obj)});
 		}
 	}
 
@@ -63,6 +84,20 @@ class SearchBar extends Component {
 		}
 	}
 
+	renderLocations() {
+		if (this.state.locations.length > 0) {
+			return (
+				this.state.locations.map((location) => {
+					return (
+						<div className="dropdown-row" key={location.id} onClick={() => this.addTag(location)}>
+							{location.value}
+						</div>
+					);
+				})
+			);
+		}
+	}
+
 	render() {
 		return (
 			<div className="search-component">
@@ -79,27 +114,7 @@ class SearchBar extends Component {
 						<div className="filter-dropdown">
 							Location ▾
 							<div className="dropdown-group location-group hidden">
-								<div className="dropdown-row">
-									N America
-								</div>
-								<div className="dropdown-row">
-									S America
-								</div>
-								<div className="dropdown-row">
-									Asia
-								</div>
-								<div className="dropdown-row">
-									Europe
-								</div>
-								<div className="dropdown-row">
-									Australia
-								</div>
-								<div className="dropdown-row">
-									Middle East
-								</div>
-								<div className="dropdown-row">
-									Africa
-								</div>
+								{this.renderLocations()}
 							</div>
 						</div>
 						<div className="filter-dropdown">
