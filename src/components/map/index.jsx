@@ -20,25 +20,35 @@ class SearchBar extends Component {
 				{
 					category: 'location',
 					value: 'Oakland, CA',
-					data: '1234-Oakland, CA'
+					id: '1234-Oakland, CA'
 				},
 				{
 					category: 'location',
 					value: 'San Francisco, CA',
-					data: '2345-San Francisco, CA'
+					id: '2345-San Francisco, CA'
 				},
 				{
 					category: 'location',
 					value: 'New York City, NY',
-					data: '3456-New York City, NY'
+					id: '3456-New York City, NY'
 				},
 				{
 					category: 'location',
 					value: 'Chicago, IL',
-					data: '4567-Chicago, IL'
+					id: '4567-Chicago, IL'
 				}
 			]
 		}
+	}
+
+	removeTag(tagId) {
+		let newList = this.state.searchTags.slice();
+		for (let i = newList.length - 1; i >= 0; i--) {
+			if (newList[i].id === tagId) {
+				newList.splice(i, 1);
+			}
+		}
+		this.setState({searchTags: newList});
 	}
 
 	renderSearchTags() {
@@ -46,18 +56,12 @@ class SearchBar extends Component {
 			return (
 				this.state.searchTags.map((tag) => {
 					return (
-						<span className="search-tag" key={tag.data}><strong>{tag.value}</strong><img src={closeX} className="closeX"/></span>
+						<span className="search-tag" key={tag.id}><strong>{tag.value}</strong><img src={closeX} className="closeX" onClick={() => this.removeTag(tag.id)}/></span>
 					);
 				})
 			);
 		}
 	}
-						// <span className="search-tag"><strong>Oakland, CA</strong><img src={closeX} className="closeX"/></span>
-						// <span className="search-tag"><strong>San Francisco, CA</strong><img src={closeX} className="closeX"/></span>
-						// <span className="search-tag"><strong>Coffee Shops</strong><img src={closeX} className="closeX"/></span>
-						// <span className="search-tag"><strong>Tariq Ismail</strong><img src={closeX} className="closeX"/></span>
-						// <span className="search-tag"><strong>Japan</strong><img src={closeX} className="closeX"/></span>
-						// <span className="search-tag"><strong>Last 3 months</strong><img src={closeX} className="closeX"/></span>
 
 	render() {
 		return (
