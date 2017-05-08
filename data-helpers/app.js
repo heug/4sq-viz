@@ -1,10 +1,25 @@
+const Trie = require('./trieDict');
 const methods = {}
+
+const dictionary = new Trie();
 
 methods.getCategories = (categories) => {
 	let store = {};
 	categories.forEach((category) => {
 		console.log(category.name);
 	});
+}
+
+methods.buildDict = (checkInList) => {
+	checkInList.forEach((item) => {
+		dictionary.checkAndAdd(item.venue.location.city);
+		dictionary.checkAndAdd(item.venue.location.state);
+		dictionary.checkAndAdd(item.venue.location.country);
+	});
+}
+
+methods.searchLocations = (query) => {
+	return dictionary.searchResults(query);
 }
 
 methods.getCategoryCount = (checkInList) => {

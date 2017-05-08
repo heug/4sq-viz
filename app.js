@@ -14,6 +14,8 @@ let tester = STUB1.response.checkins.items
 	.concat(STUB3.response.checkins.items)
 	.concat(STUB4.response.checkins.items);
 
+get4sqData.buildDict(tester);
+
 let categories = CATEGORIES_STUB.response.categories;
 
 const app = express();
@@ -29,13 +31,11 @@ app.get('/api/test/venues', (req, res, next) => {
 });
 
 app.get('/api/test/categories', (req, res, next) => {
-	let datum = get4sqData.getGeojson(tester);
-	return res.json(datum);
+	return res.json(get4sqData.getGeojson(tester));
 });
 
-// TODO: Create Filtering Mechanism for venues (pagination)
-app.get('/api/filter', (req, res, next) => {
-	var start = req.query.start;	
+app.get('/api/test/search', (req, res, next) => {
+	return res.json(get4sqData.searchLocations(req.query.term));
 });
 
 app.get('*', (req, res) => {
